@@ -11,14 +11,19 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { AlertifyService } from '../../services/AlertifyService';
 import { AuthService } from '../../services/authService';
+import { MapComponent } from './map/map.component';
+import { PropertyComponent } from './Properties/property.component';
+import { AddPropertyComponent } from './AddForm/addproperty.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent
+    MapComponent,
+    FetchDataComponent,
+    PropertyComponent,
+    AddPropertyComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -27,8 +32,9 @@ import { AuthService } from '../../services/authService';
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'map', component: MapComponent },
+      { path: 'properties', component: PropertyComponent },
+      { path: 'addproperty', component: AddPropertyComponent },
     ])
   ],
   providers: [AlertifyService,
