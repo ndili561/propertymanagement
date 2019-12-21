@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';  // https://github.com/auth0/angular2-jwt
 import { environment } from 'src/environments/environment';
-import { User } from '../_models/user';
+import { User, PropertyOwner } from '../_models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -34,8 +34,14 @@ export class AuthService {
     );
   }
 
-  register(user: User) {
+  registerUser(user: User) {
     return this.http.post(this.baseUrl + 'register', user);
+  }
+
+  registerOwner(PropertyOwner: PropertyOwner) {
+    return this.http.post('/propertyowner/Add', PropertyOwner, {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
   }
 
   loggedIn() {

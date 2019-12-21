@@ -27,6 +27,7 @@ namespace PropertyManagement
         {
             services.AddDbContext<DataContext>(c => c.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
+
             // In production, the Angular files will be served from this directory
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
              .AddJwtBearer(options => {
@@ -73,6 +74,8 @@ namespace PropertyManagement
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
             });
+            
+            
 
             app.UseSpa(spa =>
             {

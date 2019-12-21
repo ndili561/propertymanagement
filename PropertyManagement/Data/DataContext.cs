@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PropertyManagement.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,8 @@ namespace PropertyManagement.Data
         {
 
         }
+
+        public DbSet<User> Users { get; set; }
+        public DbSet<PropertyOwner> Properties { get; set; }
     }
 }
