@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';  // https://github.com/auth0/angular2-jwt
 import { environment } from 'src/environments/environment';
-import { User, PropertyOwner } from '../_models/user';
+import { User, PropertyOwner, PaginatedResult } from '../_models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,29 @@ export class AuthService {
   currentPhotoUrl = this.photoUrl.asObservable();
 
   constructor(private http: HttpClient) { }
+
+  import(pageNumber?, pageSize?, userParams?, likesParam?): Observable<PaginatedResult<PropertyOwner[]>> {
+    const paginatedResult: PaginatedResult<PropertyOwner[]> = new PaginatedResult<PropertyOwner[]>();
+
+    let httpParams = new HttpParams();
+
+
+    if (pageNumber != null && pageSize != null) {
+      httpParams = httpParams.append('pageNumber', pageNumber);
+      httpParams = httpParams.append('pageSize', pageSize);
+    }
+
+    return this.http.get<PropertyOwner[]>('/PropertyOwner/GetAsync', { observe: 'response', params: httpParams }).pipe(
+      map(response => {
+        paginatedResult.result = response.body;
+        const header = response.headers.get('Pagination');
+        if (header != null) {
+          paginatedResult.pagination = JSON.parse(header);
+        }
+        return paginatedResult;
+      })
+    );
+  }
 
 
   login(model: any) {

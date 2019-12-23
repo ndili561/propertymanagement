@@ -4,27 +4,25 @@
       <input type="text" [ngClass]="{'is-invalid':
              registerForm.get('FirstName').errors && registerForm.get('FirstName').touched}"
              class="form-control" formControlName="FirstName" placeholder="Enter firstname">
-      <div class="invalid-feedback">User name required.</div>
+      <div class="invalid-feedback">Firstname required.</div>
     </div>
     <div class="col-md-4 mb-3 md-form form-group">
       <input type="text" [ngClass]="{'is-invalid':
              registerForm.get('LastName').errors && registerForm.get('LastName').touched}"
              class="form-control" formControlName="LastName" placeholder="Last Name">
-      <div class="invalid-feedback">User name required.</div>
+      <div class="invalid-feedback">Lastname required.</div>
     </div>
     <div class="col-md-4 mb-3 md-form form-group">
-      <input type="text" [ngClass]="{'is-invalid':
+      <input id="address" type="text" [ngClass]="{'is-invalid':
              registerForm.get('Address').errors && registerForm.get('Address').touched}"
              class="form-control" formControlName="Address" placeholder="Address">
-      <div class="invalid-feedback">User name required.</div>
+      <div class="invalid-feedback">Address is required.</div>
     </div>
   </div>
-  <!--<div class="form-row">
-    <textarea type="text" [ngClass]="{'is-invalid':
-             registerForm.get('notes').errors && registerForm.get('notes').touched}"
-           class="form-control" formControlName="Notes" placeholder="Notes" />
-    <div class="invalid-feedback">User name required.</div>
-  </div>-->
- 
-  <button class="btn btn-primary btn-md btn-rounded" type="submit">Submit form</button>
+  <div class="form-row">
+    <textarea type="text" 
+           class="form-control" formControlName="Notes" placeholder="Notes" ></textarea>
+  </div>
+ <br/>
+  <button [disabled]="!registerForm.valid" class="btn btn-primary btn-md btn-rounded" type="submit">Submit form</button>
 </form>
