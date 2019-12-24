@@ -1,4 +1,6 @@
-﻿using PropertyManagement.Model;
+﻿using DatingApp.API.Helpers;
+using PropertyManagement.Helpers;
+using PropertyManagement.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,6 @@ namespace PropertyManagement.Data
     public interface IOwnerRepository
     {
         Task<PropertyOwner> AddOwner(PropertyOwner owner);
-        Task<List<PropertyOwner>> GetProperties();
+        Task<PagedList<PropertyOwner>> GetProperties(UserParam param);
     }
 }

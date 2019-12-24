@@ -1,22 +1,32 @@
 <div class="container">
   <div class="row justify-content-end">
     <div class="col-md-2">
-      <button type="button" class="btn btn-primary btn-md" [routerLink]="['/addproperty']">Add Property</button>
+      <button type="button" class="btn btn-primary btn-md" (click)="toAddProperty()">Add Property</button>
     </div>
   </div>
   <br />
   <table class="table">
     <tr>
-      <th>#</th>
+      <th>Id</th>
       <th>FirstName</th>
       <th>LastName</th>
       <th>Address</th>
+      <th>Notes</th>
     </tr>
-    <tr *ngFor="let game of games; let i = index">
-      <td>{{i + 1}}</td>
-      <td>{{game.game}}</td>
-      <td>{{game.platform}}</td>
-      <td>{{game.release}}</td>
+    <tr *ngFor="let user of paginatedList.result">
+      <td>{{user.id}}</td>
+      <td>{{user.firstName}}</td>
+      <td>{{user.lastName}}</td>
+      <td>{{user.address}}</td>
+      <td>{{user.notes}}</td>
     </tr>
   </table>
+  <div class="row justify-content-center">
+    <pagination [totalItems]="paginatedList.pagination.totalItems"
+                [itemsPerPage]="paginatedList.pagination.itemsPerPage"
+                [(ngModel)]="paginatedList.pagination.currentPage" (pageChanged)="pageChanged($event)"
+                [boundaryLinks]="true"
+                previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+    </pagination>
+  </div>
 </div>

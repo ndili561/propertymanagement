@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DatingApp.API.Helpers;
+using Microsoft.EntityFrameworkCore;
+using PropertyManagement.Helpers;
 using PropertyManagement.Model;
 using System;
 using System.Collections.Generic;
@@ -22,10 +24,12 @@ namespace PropertyManagement.Data
            return new PropertyOwner();
         }
 
-        public async Task<List<PropertyOwner>> GetProperties()
+        public async Task<PagedList<PropertyOwner>> GetProperties(UserParam userparam)
         {
-            List<PropertyOwner> task = await _db.Properties.Select(s=>s).ToListAsync();
-            return task;
+            var task = _db.Properties.Where(s => s.LastName != null).AsQueryable();
+            var pagedList = await PagedList<PropertyOwner>.CreateAsync(task, userparam.PageNumber, userparam.PageSize);
+
+            return pagedList;
         }
     }
 }

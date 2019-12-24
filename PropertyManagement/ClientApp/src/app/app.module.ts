@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { PaginationModule} from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -14,6 +15,8 @@ import { AuthService } from '../../services/authService';
 import { MapComponent } from './map/map.component';
 import { PropertyComponent } from './Properties/property.component';
 import { AddPropertyComponent } from './AddForm/addproperty.component';
+import { ListResolver } from '../../_resolvers/list.resolver';
+import { appRoutes } from '../../routes';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,8 @@ import { AddPropertyComponent } from './AddForm/addproperty.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule.forRoot(appRoutes),
+    PaginationModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'map', component: MapComponent },
@@ -38,7 +43,8 @@ import { AddPropertyComponent } from './AddForm/addproperty.component';
     ])
   ],
   providers: [AlertifyService,
-    AuthService],
+    AuthService,
+    ListResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

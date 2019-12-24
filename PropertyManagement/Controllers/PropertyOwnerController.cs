@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PropertyManagement.Data;
+using PropertyManagement.Extensions;
 using PropertyManagement.Helpers;
 using PropertyManagement.Model;
 using System;
@@ -20,11 +21,12 @@ namespace PropertyManagement.Controllers
         }
 
 
-        [HttpGet]
+    
         public async Task<IActionResult> GetAsync([FromQuery]UserParam userParams)
         {
-            var task = await _authRepo.GetProperties();
-            return Json(task);
+            var pagedList = await _authRepo.GetProperties(userParams);
+            Response.AddPagination(pagedList.CurrentPage, pagedList.PageSize, pagedList.TotalCount, pagedList.TotalPages);
+            return Json(pagedList);
         }
 
 

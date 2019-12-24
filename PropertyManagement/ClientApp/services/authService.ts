@@ -4,7 +4,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';  // https://github.com/auth0/angular2-jwt
 import { environment } from 'src/environments/environment';
-import { User, PropertyOwner, PaginatedResult } from '../_models/user';
+import { User, PropertyOwner} from '../_models/user';
+import { PaginationComponent } from 'ngx-bootstrap';
+import { PaginatedResult, Pagination } from '../_models/pagination';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +21,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  import(pageNumber?, pageSize?, userParams?, likesParam?): Observable<PaginatedResult<PropertyOwner[]>> {
+  import(pageNumber?, pageSize?, userParams?): Observable<PaginatedResult<PropertyOwner[]>> {
     const paginatedResult: PaginatedResult<PropertyOwner[]> = new PaginatedResult<PropertyOwner[]>();
 
     let httpParams = new HttpParams();
@@ -30,7 +32,7 @@ export class AuthService {
       httpParams = httpParams.append('pageSize', pageSize);
     }
 
-    return this.http.get<PropertyOwner[]>('/PropertyOwner/GetAsync', { observe: 'response', params: httpParams }).pipe(
+    return this.http.get<PropertyOwner[]>('/PropertyOwner/Get', { observe: 'response', params: httpParams }).pipe(
       map(response => {
         paginatedResult.result = response.body;
         const header = response.headers.get('Pagination');
